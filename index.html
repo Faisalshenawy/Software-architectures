@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Software Architecture & Design – Comprehensive MCQ Quiz</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #e5e7eb;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: rgba(15, 23, 42, 0.96);
+      max-width: 1100px;
+      width: 100%;
+      border-radius: 16px;
+      padding: 24px 28px 32px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      color: #e5e7eb;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: #9ca3af;
+      margin-bottom: 16px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      color: #e5e7eb;
+      background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.4), transparent);
+    }
+
+    .info {
+      background: rgba(15, 118, 110, 0.15);
+      border-left: 3px solid #14b8a6;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      color: #ccfbf1;
+    }
+
+    .info strong {
+      color: #5eead4;
+    }
+
+    #quiz {
+      margin-top: 12px;
+    }
+
+    .question-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 14px;
+      padding: 14px 16px 12px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+    }
+
+    .question-card:hover {
+      border-color: rgba(129, 140, 248, 0.75);
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.9);
+      transform: translateY(-1px);
+    }
+
+    .q-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      gap: 8px;
+    }
+
+    .q-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .q-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+    }
+
+    .q-lecture-tag {
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(59, 130, 246, 0.15);
+      color: #bfdbfe;
+      border: 1px solid rgba(59, 130, 246, 0.5);
+    }
+
+    .q-type-tag {
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(244, 114, 182, 0.12);
+      color: #f9a8d4;
+      border: 1px solid rgba(244, 114, 182, 0.4);
+    }
+
+    .q-body {
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      color: #e5e7eb;
+    }
+
+    .answers {
+      margin-top: 4px;
+    }
+
+    .answers label {
+      display: block;
+      padding: 6px 8px;
+      font-size: 0.88rem;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-bottom: 4px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.75);
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .answers input {
+      margin-right: 6px;
+      transform: translateY(1px);
+    }
+
+    .answers label:hover {
+      border-color: rgba(129, 140, 248, 0.8);
+      background: rgba(30, 64, 175, 0.5);
+    }
+
+    .correct {
+      border-color: rgba(34, 197, 94, 0.9) !important;
+      background: rgba(22, 163, 74, 0.18) !important;
+    }
+
+    .wrong {
+      border-color: rgba(248, 113, 113, 0.95) !important;
+      background: rgba(185, 28, 28, 0.25) !important;
+    }
+
+    .explanation {
+      font-size: 0.8rem;
+      margin-top: 4px;
+      color: #cbd5f5;
+      display: none;
+    }
+
+    .explanation strong {
+      color: #a5b4fc;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 9px 18px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.1s ease, box-shadow 0.15s ease, background 0.2s ease;
+    }
+
+    #submit {
+      background: linear-gradient(135deg, #4f46e5, #6366f1);
+      color: white;
+      box-shadow: 0 10px 20px rgba(79, 70, 229, 0.45);
+    }
+
+    #submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 26px rgba(79, 70, 229, 0.6);
+    }
+
+    #retry {
+      background: rgba(15, 23, 42, 0.95);
+      color: #e5e7eb;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+    }
+
+    #retry:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    #results {
+      margin-top: 14px;
+      font-size: 0.95rem;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      display: none;
+    }
+
+    #results strong {
+      color: #a5b4fc;
+    }
+
+    .results-bad {
+      color: #fecaca;
+    }
+
+    .results-good {
+      color: #bef264;
+    }
+
+    .results-medium {
+      color: #facc15;
+    }
+
+    .footer-note {
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+
+    @media (max-width: 720px) {
+      .container {
+        padding: 18px 16px 22px;
+      }
+      h1 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Software Architecture &amp; Design – MCQ Quiz</h1>
+    <p class="subtitle">
+      Based on Lectures 1–5 (Architecture, Quality Attributes, Layered, Microkernel, Microservices, Event-Driven).
+    </p>
+
+    <div class="badge-row">
+      <span class="badge">Lecture 1 – Fundamentals الأساسيات</span>
+      <span class="badge">Lecture 2 – Layered Architecture المعمارية الطبقية</span>
+      <span class="badge">Lecture 3 – Microkernel النواة المصغّرة</span>
+      <span class="badge">Lecture 4 – Microservices الخدمات المصغّرة</span>
+      <span class="badge">Lecture 5 – Event-Driven معمارية الأحداث</span>
+    </div>
+
+    <div class="info">
+      <strong>Instructions / التعليمات:</strong>  
+      Choose the best answer for each question. ثم اضغط <em>Submit</em> لرؤية درجتك مع الشرح لكل سؤال.
+      Correct answers will be highlighted in green ✅ and wrong ones in red ❌.
+    </div>
+
+    <div id="quiz"></div>
+
+    <div class="actions">
+      <button id="submit">✅ Submit Quiz</button>
+      <button id="retry">🔁 Reset / Retry</button>
+    </div>
+
+    <div id="results"></div>
+    <p class="footer-note">
+      Tip: Focus on key concepts like quality attributes, partitioning, API Gateway, bounded context, plug-ins, and events.
+    </p>
+  </div>
+
+  <script>
+    // ==========================
+    // Question Bank (MCQ)
+    // ==========================
+    const questions = [
+      // --- Lecture 1: Fundamentals & Quality Attributes ---
+      {
+        lecture: "L1 – Fundamentals",
+        type: "MCQ",
+        question:
+          "Software architecture acts as a blueprint for the system. What is the BEST definition?",
+        answers: [
+          "A low-level implementation of functions and classes only.",
+          "A high-level structure that organizes components and their interactions to meet quality attributes.",
+          "A document listing only the non-functional requirements.",
+          "Just a diagram of the user interface screens."
+        ],
+        correctAnswer: 1,
+        explanation:
+          "Architecture is a high-level structure (هيكل عالي المستوى) that defines components, their relationships, and how they satisfy quality attributes like performance, security, and maintainability."
+      },
+      {
+        lecture: "L1 – Fundamentals",
+        type: "MCQ",
+        question:
+          "Which statement about the Design phase of SDLC is TRUE?",
+        answers: [
+          "Architecture is not needed in the design phase.",
+          "Architecture is defined and documented in the design phase.",
+          "Testing strategy is the only output of the design phase.",
+          "Business requirements are gathered in the design phase."
+        ],
+        correctAnswer: 1,
+        explanation:
+          "In the SDLC design phase, the software architecture is defined and documented (يتم تحديد وتوثيق معمارية النظام)."
+      },
+      {
+        lecture: "L1 – Quality Attributes",
+        type: "MCQ",
+        question:
+          "Which quality attribute focuses on the system’s ability to handle increased workload without performance degradation?",
+        answers: [
+          "Maintainability (سهولة الصيانة)",
+          "Reliability (الموثوقية)",
+          "Scalability (قابلية التوسع)",
+          "Portability (قابلية النقل)"
+        ],
+        correctAnswer: 2,
+        explanation:
+          "Scalability means the system can handle more users or data without losing performance (التعامل مع زيادة الحمل بدون انخفاض الأداء)."
+      },
+      {
+        lecture: "L1 – Quality Attributes",
+        type: "MCQ",
+        question:
+          "A system that continues operating correctly over time without failure mainly satisfies which attribute?",
+        answers: [
+          "Reliability (الموثوقية)",
+          "Usability (سهولة الاستخدام)",
+          "Interoperability (قابلية التوافق)",
+          "Testability (قابلية الاختبار)"
+        ],
+        correctAnswer: 0,
+        explanation:
+          "Reliability is the ability to perform required functions without failure during a specified period (العمل بدون أعطال لفترة زمنية)."
+      },
+      {
+        lecture: "L1 – Quality Attributes",
+        type: "MCQ",
+        question:
+          "Which attribute is MOST related to how easy it is to modify and update the system?",
+        answers: [
+          "Maintainability (سهولة الصيانة)",
+          "Availability (الإتاحة)",
+          "Security (الأمان)",
+          "Performance (الأداء)"
+        ],
+        correctAnswer: 0,
+        explanation:
+          "Maintainability means the system can be modified or updated easily (سهولة التعديل والتحديث)."
+      },
+      {
+        lecture: "L1 – Styles & Patterns",
+        type: "MCQ",
+        question:
+          "Which option BEST describes the difference between an architectural style and a design pattern?",
+        answers: [
+          "There is no difference; they are exactly the same.",
+          "Architectural style is about overall structure; design pattern is about solving local design problems.",
+          "Design patterns are only for databases; architectural styles are for UI.",
+          "Architectural style is only about code syntax; design patterns are about diagrams."
+        ],
+        correctAnswer: 1,
+        explanation:
+          "Architectural styles (أنماط معمارية) describe the high-level structure of the system; design patterns (أنماط تصميم) are reusable solutions to common design problems at a smaller scale."
+      },
+      {
+        lecture: "L1 – Partitioning",
+        type: "MCQ",
+        question:
+          "Technical partitioning (التقسيم التقني) organizes components mainly according to:",
+        answers: [
+          "Business domains like customer, payment, shipping.",
+          "Physical servers and network topology only.",
+          "Technical layers such as presentation, business, and persistence.",
+          "User roles such as admin and guest."
+        ],
+        correctAnswer: 2,
+        explanation:
+          "Technical partitioning organizes by technical usage (presentation, business, persistence layers), not by business domain."
+      },
+
+      // --- Lecture 2: Layered Architecture ---
+      {
+        lecture: "L2 – Layered",
+        type: "MCQ",
+        question:
+          "Which layer is responsible for handling user input and displaying data in layered architecture?",
+        answers: [
+          "Business Layer",
+          "Persistence/Data Access Layer",
+          "Presentation Layer (طبقة العرض)",
+          "Database Layer"
+        ],
+        correctAnswer: 2,
+        explanation:
+          "The Presentation Layer manages user interaction, validation, and displaying information to the user."
+      },
+      {
+        lecture: "L2 – Layered",
+        type: "MCQ",
+        question:
+          "Which layer is mainly responsible for implementing business rules and workflows?",
+        answers: [
+          "Presentation Layer",
+          "Business Layer (طبقة منطق الأعمال)",
+          "Database Layer",
+          "Network Layer"
+        ],
+        correctAnswer: 1,
+        explanation:
+          "The Business Layer contains the system’s logic and rules (قواعد ومنطق النظام)."
+      },
+      {
+        lecture: "L2 – Layered",
+        type: "MCQ",
+        question:
+          "The Persistence (DAO) Layer mainly focuses on:",
+        answers: [
+          "Data storage operations such as CRUD and SQL statements.",
+          "Rendering user interface components.",
+          "User authentication and authorization.",
+          "Calculating business KPIs."
+        ],
+        correctAnswer: 0,
+        explanation:
+          "The Persistence/Data Access Layer manages database connections and CRUD operations."
+      },
+      {
+        lecture: "L2 – Layered",
+        type: "MCQ",
+        question:
+          "What does the concept of 'layers of isolation' mean in layered architecture?",
+        answers: [
+          "Each layer must always access all other layers.",
+          "Changes in one layer should not impact other layers significantly.",
+          "Layers are deployed on separate servers only.",
+          "The presentation layer is always open to all other layers."
+        ],
+        correctAnswer: 1,
+        explanation:
+          "Isolation means a change in one layer is mostly contained within that layer (التغيير يكون معزولًا قدر الإمكان)."
+      },
+      {
+        lecture: "L2 – Layered",
+        type: "MCQ",
+        question:
+          "In a CLOSED layer (طبقة مغلقة) design:",
+        answers: [
+          "Upper layers can skip intermediate layers.",
+          "Requests must go through each layer in sequence.",
+          "No layer can communicate with any other layer.",
+          "Only the database layer is allowed to send responses."
+        ],
+        correctAnswer: 1,
+        explanation:
+          "Closed layer means no bypass: e.g., Presentation → Business → Persistence → Database."
+      },
+      {
+        lecture: "L2 – Layered",
+        type: "MCQ",
+        question:
+          "The 'architecture sinkhole' anti-pattern in layered architecture refers to:",
+        answers: [
+          "Layers doing heavy computation and complex logic.",
+          "Most requests passing through many layers with little or no logic in each.",
+          "Having more than four layers in an application.",
+          "Using caching in the persistence layer."
+        ],
+        correctAnswer: 1,
+        explanation:
+          "Architecture sinkhole occurs when layers mainly pass data through without meaningful processing, causing overhead."
+      },
+
+      // --- Lecture 3: Microkernel ---
+      {
+        lecture: "L3 – Microkernel",
+        type: "MCQ",
+        question:
+          "In Microkernel Architecture, the 'core system' (النواة الأساسية) is responsible for:",
+        answers: [
+          "All possible business rules and regional variations.",
+          "Minimal essential functionality and providing a framework for plug-ins.",
+          "Only user interface logic.",
+          "Only database access."
+        ],
+        correctAnswer: 1,
+        explanation:
+          "The core system provides the base framework and minimal functionality, while plug-ins extend behavior."
+      },
+      {
+        lecture: "L3 – Microkernel",
+        type: "MCQ",
+        question:
+          "According to the Independent Plug-in Principle, plug-ins should:",
+        answers: [
+          "Depend heavily on each other to share logic.",
+          "Only depend directly on the database.",
+          "Be independent of each other and interact through the core system.",
+          "Replace the core system when needed."
+        ],
+        correctAnswer: 2,
+        explanation:
+          "Plug-ins must be standalone and only communicate with the core through defined interfaces (واجهة واحدة موحدة)."
+      },
+      {
+        lecture: "L3 – Microkernel",
+        type: "MCQ",
+        question:
+          "Which statement about the Standard Interface Principle is TRUE?",
+        answers: [
+          "Each plug-in requires a completely different interface.",
+          "There should be a single common interface for the core to use any plug-in.",
+          "Interfaces are optional in microkernel architecture.",
+          "Only the registry needs an interface."
+        ],
+        correctAnswer: 1,
+        explanation:
+          "Standard Interface Principle: core system uses a single, consistent interface to interact with all plug-ins."
+      },
+      {
+        lecture: "L3 – Microkernel",
+        type: "MCQ",
+        question:
+          "Which is a typical real-world example of Microkernel Architecture?",
+        answers: [
+          "A single static HTML page.",
+          "An IDE (like Eclipse) with installable plug-ins.",
+          "A pure relational database management system.",
+          "A simple calculator application with no extensions."
+        ],
+        correctAnswer: 1,
+        explanation:
+          "IDEs such as Eclipse and Android Studio use a core + plug-ins model, classic microkernel usage."
+      },
+      {
+        lecture: "L3 – Microkernel",
+        type: "MCQ",
+        question:
+          "When is Microkernel Architecture NOT a good choice?",
+        answers: [
+          "When you expect to add many features gradually via plug-ins.",
+          "When the core system becomes a bottleneck and most changes are in the core.",
+          "When you want to configure features per client using plug-ins.",
+          "When you need a low-cost and simple extensible product base."
+        ],
+        correctAnswer: 1,
+        explanation:
+          "If most changes are in the core and the core is heavily loaded, microkernel is not suitable."
+      },
+
+      // --- Lecture 4: Microservices ---
+      {
+        lecture: "L4 – Microservices",
+        type: "MCQ",
+        question:
+          "Which description BEST matches a microservice (الخدمة المصغّرة)?",
+        answers: [
+          "A very large service that handles many unrelated responsibilities.",
+          "A small, single-purpose, independently deployed service that does one thing really well.",
+          "A user interface component for mobile devices only.",
+          "A monolithic application with multiple layers."
+        ],
+        correctAnswer: 1,
+        explanation:
+          "A microservice focuses on a single business capability and is deployed independently."
+      },
+      {
+        lecture: "L4 – Microservices",
+        type: "MCQ",
+        question:
+          "What is the primary role of the API Gateway in microservices architecture?",
+        answers: [
+          "Store all application data.",
+          "Contain complex business rules for all services.",
+          "Hide service locations and route client requests to the correct microservice.",
+          "Replace all microservices with one big API."
+        ],
+        correctAnswer: 2,
+        explanation:
+          "API Gateway abstracts and routes requests, and can provide cross-cutting concerns like security, logging, and aggregation."
+      },
+      {
+        lecture: "L4 – Microservices",
+        type: "MCQ",
+        question:
+          "Bounded Context (السياق المحدود) in microservices means:",
+        answers: [
+          "All services share a single large database.",
+          "Each service owns its data and logic, and others must ask it for its data.",
+          "Data is always stored in one central schema for all services.",
+          "Only UI code is separated."
+        ],
+        correctAnswer: 1,
+        explanation:
+          "Bounded context encapsulates the data and logic of a subdomain in a single service; others cannot access its tables directly."
+      },
+      {
+        lecture: "L4 – Microservices",
+        type: "MCQ",
+        question:
+          "Which type of latency is specifically about time spent authenticating and authorizing calls between services?",
+        answers: [
+          "Network latency",
+          "Security latency",
+          "Data latency",
+          "Disk latency"
+        ],
+        correctAnswer: 1,
+        explanation:
+          "Security latency is the delay due to authentication/authorization steps for each remote call."
+      },
+      {
+        lecture: "L4 – Microservices",
+        type: "MCQ",
+        question:
+          "When is microservices architecture generally NOT a good fit?",
+        answers: [
+          "When the system can be decomposed into independent business capabilities.",
+          "When you need high agility and frequent independent deployments.",
+          "When data is extremely tightly coupled and all services must share the same schema.",
+          "When you want fault tolerance at a fine-grained level."
+        ],
+        correctAnswer: 2,
+        explanation:
+          "If data is tightly coupled and all services must access the same schema, microservices will be difficult and risky."
+      },
+
+      // --- Lecture 5: Event-Driven Architecture ---
+      {
+        lecture: "L5 – Event-Driven",
+        type: "MCQ",
+        question:
+          "In Event-Driven Architecture (EDA), an initiating event (الحدث المُحفّز) is:",
+        answers: [
+          "Any log entry generated by the system.",
+          "An internal operating system interrupt only.",
+          "An external action that starts a workflow, such as placing an order.",
+          "A database backup process."
+        ],
+        correctAnswer: 2,
+        explanation:
+          "Initiating events typically come from outside the main system and trigger a process (مثل إتمام طلب شراء)."
+      },
+      {
+        lecture: "L5 – Event-Driven",
+        type: "MCQ",
+        question:
+          "Which component is responsible for performing business logic and emitting new processing events?",
+        answers: [
+          "Event channel only.",
+          "Event processor (service) معالج الحدث.",
+          "Database index.",
+          "UI controller."
+        ],
+        correctAnswer: 1,
+        explanation:
+          "Event processors consume events, execute logic, and publish new events to communicate state changes."
+      },
+      {
+        lecture: "L5 – Event-Driven",
+        type: "MCQ",
+        question:
+          "In EDA, queues are commonly used for:",
+        answers: [
+          "Storing log files.",
+          "Point-to-point channels for initiating events.",
+          "Only caching read-only data.",
+          "Storing UI themes."
+        ],
+        correctAnswer: 1,
+        explanation:
+          "Initiating events usually use point-to-point channels like queues; processing events often use publish-subscribe topics."
+      },
+      {
+        lecture: "L5 – Event-Driven",
+        type: "MCQ",
+        question:
+          "Which rule supports architectural extensibility in EDA?",
+        answers: [
+          "Never emit events unless a consumer exists.",
+          "Only emit events for successful operations.",
+          "Always have services advertise their state changes, even if no other service responds yet.",
+          "Emit events only once per day."
+        ],
+        correctAnswer: 2,
+        explanation:
+          "Advertising state changes (إعلان تغيير الحالة) creates extension points for future services without changing existing ones."
+      },
+      {
+        lecture: "L5 – Event-Driven",
+        type: "MCQ",
+        question:
+          "EDA is NOT a good choice when:",
+        answers: [
+          "You need highly reactive, scalable systems.",
+          "You mainly respond to CRUD-style synchronous user requests with strict consistency.",
+          "You need to process complex, nondeterministic workflows.",
+          "You want fault tolerance and loose coupling."
+        ],
+        correctAnswer: 1,
+        explanation:
+          "If most processing is synchronous request/response with strict data consistency, EDA is usually not appropriate."
+      }
+    ];
+
+    // ==========================
+    // Quiz Rendering Logic
+    // ==========================
+    const quizContainer = document.getElementById("quiz");
+    const resultsContainer = document.getElementById("results");
+    const submitButton = document.getElementById("submit");
+    const retryButton = document.getElementById("retry");
+
+    function buildQuiz() {
+      const output = [];
+
+      questions.forEach((q, index) => {
+        const answers = [];
+        q.answers.forEach((answer, i) => {
+          const optionId = `q${index}_opt${i}`;
+          answers.push(
+            `<label for="${optionId}">
+               <input type="radio" name="question${index}" id="${optionId}" value="${i}">
+               ${String.fromCharCode(65 + i)}. ${answer}
+             </label>`
+          );
+        });
+
+        output.push(`
+          <div class="question-card" data-question-index="${index}">
+            <div class="q-header">
+              <div class="q-title">Q${index + 1}.</div>
+              <div class="q-meta">
+                <span class="q-lecture-tag">${q.lecture}</span>
+                <span class="q-type-tag">${q.type}</span>
+              </div>
+            </div>
+            <div class="q-body">${q.question}</div>
+            <div class="answers">
+              ${answers.join("")}
+            </div>
+            <div class="explanation">
+              <strong>Explanation / الشرح:</strong> ${q.explanation}
+            </div>
+          </div>
+        `);
+      });
+
+      quizContainer.innerHTML = output.join("");
+    }
+
+    function showResults() {
+      const questionCards = quizContainer.querySelectorAll(".question-card");
+      let numCorrect = 0;
+
+      questions.forEach((q, index) => {
+        const card = questionCards[index];
+        const answerContainer = card.querySelector(".answers");
+        const selector = `input[name=question${index}]:checked`;
+        const userAnswerInput = answerContainer.querySelector(selector);
+        const explanationEl = card.querySelector(".explanation");
+
+        // Clear old classes
+        answerContainer.querySelectorAll("label").forEach((label) => {
+          label.classList.remove("correct", "wrong");
+        });
+
+        let userAnswer = null;
+        if (userAnswerInput) {
+          userAnswer = parseInt(userAnswerInput.value, 10);
+        }
+
+        if (userAnswer === q.correctAnswer) {
+          numCorrect++;
+          // mark selected as correct
+          const correctLabel = userAnswerInput.parentElement;
+          correctLabel.classList.add("correct");
+        } else {
+          // if chosen wrong, mark it wrong
+          if (userAnswerInput) {
+            userAnswerInput.parentElement.classList.add("wrong");
+          }
+          // highlight the correct one
+          const correctSelector = `input[value="${q.correctAnswer}"]`;
+          const correctInput = answerContainer.querySelector(correctSelector);
+          if (correctInput) {
+            correctInput.parentElement.classList.add("correct");
+          }
+        }
+
+        // Show explanation
+        explanationEl.style.display = "block";
+      });
+
+      const total = questions.length;
+      const percentage = Math.round((numCorrect / total) * 100);
+
+      let moodClass = "results-medium";
+      let comment = "Good effort, review the explanations and try again. ✨";
+      if (percentage < 50) {
+        moodClass = "results-bad";
+        comment = "You need more revision. راجع الملخصات والمحاضرات ثم أعد المحاولة. 📚";
+      } else if (percentage >= 80) {
+        moodClass = "results-good";
+        comment = "Excellent! فهمك ممتاز للعمارة. 🚀";
+      }
+
+      resultsContainer.innerHTML = `
+        <div class="${moodClass}">
+          <strong>Score / الدرجة:</strong> ${numCorrect} / ${total}  (${percentage}%)
+        </div>
+        <div>${comment}</div>
+      `;
+      resultsContainer.style.display = "block";
+      submitButton.disabled = true;
+      submitButton.textContent = "Submitted ✅";
+    }
+
+    function resetQuiz() {
+      // simplest reset: reload page
+      window.location.reload();
+    }
+
+    // Build quiz on load
+    buildQuiz();
+
+    // Event listeners
+    submitButton.addEventListener("click", showResults);
+    retryButton.addEventListener("click", resetQuiz);
+  </script>
+</body>
+</html>
